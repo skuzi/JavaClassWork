@@ -6,17 +6,21 @@ public class Maybe<T> {
     private T value;
     private boolean nothing;
 
-    Maybe (T value) {
+    Maybe(T value) {
         this.value = value;
         nothing = false;
     }
 
-    Maybe () {
+    Maybe() {
         nothing = true;
     }
 
     public static <T> Maybe<T> just(T t) {
         return new Maybe<T>(t);
+    }
+
+    public static <T> Maybe<T> nothing() {
+        return new Maybe<T>();
     }
 
     public T get() {
@@ -28,7 +32,7 @@ public class Maybe<T> {
     }
 
     public <U> Maybe<U> map(Function<T, U> mapper) {
-        if(nothing) {
+        if (nothing) {
             return new Maybe<U>();
         } else {
             return new Maybe<U>(mapper.apply(value));
