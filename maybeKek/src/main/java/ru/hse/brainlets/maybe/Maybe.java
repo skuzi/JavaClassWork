@@ -1,17 +1,18 @@
 package ru.hse.brainlets.maybe;
 
+import java.util.NoSuchElementException;
 import java.util.function.Function;
 
 public class Maybe<T> {
     private T value;
     private boolean nothing;
 
-    Maybe (T value) {
+    Maybe(T value) {
         this.value = value;
         nothing = false;
     }
 
-    Maybe () {
+    Maybe() {
         nothing = true;
     }
 
@@ -19,8 +20,16 @@ public class Maybe<T> {
         return new Maybe<T>(t);
     }
 
-    public T get() {
-        return value;
+    public static <T> Maybe<T> nothing() {
+        return new Maybe();
+    }
+
+    public T get() throws NoSuchElementException {
+        if (nothing) {
+            throw new NoSuchElementException();
+        } else {
+            return value;
+        }
     }
 
     public boolean isPresent() {
@@ -28,7 +37,7 @@ public class Maybe<T> {
     }
 
     public <U> Maybe<U> map(Function<T, U> mapper) {
-        if(nothing) {
+        if (nothing) {
             return new Maybe<U>();
         } else {
             return new Maybe<U>(mapper.apply(value));
