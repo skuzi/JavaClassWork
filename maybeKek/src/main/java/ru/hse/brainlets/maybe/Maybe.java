@@ -7,12 +7,12 @@ public class Maybe<T> {
     private T value;
     private boolean nothing;
 
-    Maybe(T value) {
+    private Maybe(T value) {
         this.value = value;
         nothing = false;
     }
 
-    Maybe() {
+    private Maybe() {
         nothing = true;
     }
 
