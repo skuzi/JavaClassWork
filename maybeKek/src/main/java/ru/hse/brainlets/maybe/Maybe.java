@@ -40,7 +40,7 @@ public class Maybe<T> {
         if (nothing) {
             return Maybe.nothing();
         } else {
-            return new Maybe.just(mapper.apply(value));
+            return Maybe.just(mapper.apply(value));
         }
     }
 }
