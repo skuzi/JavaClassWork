@@ -1,13 +1,12 @@
 package ru.hse.kuzyaka;
 
-import javax.naming.spi.ObjectFactoryBuilder;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class SmartList<E> extends AbstractList<E> {
 
     private int size;
     private Object data;
+
 
     public SmartList() {
         size = 0;
