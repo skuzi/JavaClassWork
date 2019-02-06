@@ -2,27 +2,47 @@ package ru.hse.kuzyaka;
 
 import java.util.*;
 
+/**
+ * This class implements <code>SmartList</code> which is basically <code>List</code>, but it optimizes any work with small arrays
+ * @param <E> generic type
+ */
 public class SmartList<E> extends AbstractList<E> {
 
+    /** Stores the size of this list. */
     private int size;
+    /** Field for storing data of the list.
+     * It has four different modes: if the list is empty, it is <code>null</code>, if the list contains one element,
+     * it contains the reference to this element, if the list has from 2 up to 5 elements, it contains an array of
+     * 5 object with references to original elements, if the list has more then five objects, it contains a reference
+     * to an <code>ArrayList</code> where original elements are stored. */
     private Object data;
 
-
+    /** Constructs an empty list. */
     public SmartList() {
         size = 0;
         data = null;
     }
 
-    public SmartList(Collection<? extends E> c) {
-        for(Iterator<? extends E> i = c.iterator(); i.hasNext();) {
+    /**
+     * Constructs list with elements from the specific collection
+     * @param collection collection where the elements are taken from
+     */
+    public SmartList(Collection<? extends E> collection) {
+        for(Iterator<? extends E> i = collection.iterator(); i.hasNext();) {
             add(i.next());
         }
     }
 
+    /**
+     * Returns the element at the position specified by parameter.
+     * Throws the <code>IndexOutOfBoundsException</code> if <code>index < 0 || index > size</code>
+     * @param index index
+     * @return element
+     */
     @Override
     public E get(int index) {
         if (index < 0 || index >= size) {
-            throw new IllegalArgumentException();
+            throw new IndexOutOfBoundsException();
         }
         if(size == 1) {
             return (E) data;
@@ -33,15 +53,25 @@ public class SmartList<E> extends AbstractList<E> {
         }
     }
 
+    /**
+     * Returns the size of the list
+     * @return size of the list
+     */
     @Override
     public int size() {
         return size;
     }
 
+    /**
+     * Adds the specified element at the specific position in the list. All element starting from this position
+     * are shifted to the left. Throws the <code>IndexOutOfBoundsException</code> if <code>index < 0 || index >= size</code>
+     * @param index position to insert an element
+     * @param e the former element at this position
+     */
     @Override
     public void add(int index, E e) {
         if(index < 0 || index > size()) {
-            throw new IllegalArgumentException();
+            throw new IndexOutOfBoundsException();
         }
         if(size == 0) {
             data = e;
@@ -72,10 +102,16 @@ public class SmartList<E> extends AbstractList<E> {
         }
     }
 
+    /**
+     * Removes an element from the specific position at the list. 
+     * Throws the <code>IndexOutOfBoundsException</code> if <code>index < 0 || index >= size</code>
+     * @param index
+     * @return
+     */
     @Override
     public E remove(int index) {
         if(index < 0 || index >= size) {
-            throw new IllegalArgumentException();
+            throw new IndexOutOfBoundsException();
         }
         if(size == 1) {
             E res = (E) data;
@@ -111,7 +147,7 @@ public class SmartList<E> extends AbstractList<E> {
     @Override
     public E set(int index, E element) {
         if(index < 0 || index >= size) {
-            throw new IllegalArgumentException();
+            throw new IndexOutOfBoundsException();
         }
         if(size == 1) {
             E res = (E) data;
