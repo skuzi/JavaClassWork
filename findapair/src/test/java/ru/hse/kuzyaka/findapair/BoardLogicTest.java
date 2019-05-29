@@ -103,6 +103,37 @@ class BoardLogicTest {
 
     @Test
     void finished() {
-        
+        BoardLogic.init(2);
+        BoardLogic.open(pos1);
+        BoardLogic.open(pos2);
+        if (BoardLogic.checkEqual()) {
+            BoardLogic.close();
+            BoardLogic.open(pos3);
+            BoardLogic.open(pos4);
+            BoardLogic.checkEqual();
+            assertTrue(BoardLogic.isFinished());
+        } else {
+            BoardLogic.close();
+            BoardLogic.open(pos1);
+            BoardLogic.open(pos3);
+            if (BoardLogic.checkEqual()) {
+                BoardLogic.close();
+                BoardLogic.open(pos2);
+                BoardLogic.open(pos4);
+                BoardLogic.checkEqual();
+                assertTrue(BoardLogic.isFinished());
+            } else {
+                BoardLogic.close();
+                BoardLogic.open(pos1);
+                BoardLogic.open(pos4);
+                BoardLogic.checkEqual();
+                BoardLogic.close();
+                BoardLogic.open(pos2);
+                BoardLogic.open(pos3);
+                BoardLogic.checkEqual();
+                BoardLogic.close();
+                assertTrue(BoardLogic.isFinished());
+            }
+        }
     }
 }
